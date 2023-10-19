@@ -1,7 +1,31 @@
-import pygame
 import GridGame as gg
+from Agent import QLearningAgent
+
+from tqdm import tqdm
+
+FPS = 3
+USE_QLEARNING = True
+
+learning_rate = 0.1
+discount_factor = 0.9
+num_episodes = 30
+grid_shape = (3,3)
+
+
+def TrainQLearningAgent():
+    learning_agent = QLearningAgent(learning_rate,
+                                    discount_factor,
+                                    grid_shape)
+    for _ in tqdm(range(num_episodes), desc="EPISODE", position=0):
+        learning_agent.LearnEpisode()
+    q_table = learning_agent.GetQTable()
+    return q_table
 
 
 if __name__ == "__main__":
-    gg.Init()
-    gg.Run()
+    if (USE_QLEARNING):
+        trained_q_table = TrainQLearningAgent()
+    else:
+        trained_q_table = None
+    gg.Init(grid_shape, FPS, USE_QLEARNING)
+    gg.Run(trained_q_table)
