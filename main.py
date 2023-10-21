@@ -38,7 +38,6 @@ def SaveTrainedFile(q_table):
 
 
 def LoadTraindFile(file_name):
-    print(load_path + "\\" + file_name)
     q_table = np.load(load_path + "\\" + file_name)
     return q_table
 

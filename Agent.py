@@ -81,5 +81,4 @@ class QLearningAgent:
             player_pose = new_player_pose
     
     def GetQTable(self):
-        print(self.q_table)
         return self.q_table
