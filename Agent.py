@@ -23,10 +23,11 @@ class PlayerAgent:
 
 
 class QLearningAgent:
-    def __init__(self, learning_rate, discount_factor, grid_shape):
+    def __init__(self, learning_rate, discount_factor, grid_shape, epsilon):
         self.learning_rate = learning_rate
         self.discount_factor = discount_factor
         self.grid_shape = grid_shape
+        self.epsilon = epsilon
         self.num_actions = 4
         self.q_table = np.zeros([grid_shape[0], grid_shape[1], # Number of Grid
                                 grid_shape[0], grid_shape[1],  # Number of Food pose
@@ -53,7 +54,7 @@ class QLearningAgent:
                                     
     def UpdateQTable(self, player_pose, food_pose, obs_pose, action):
         while (player_pose != food_pose):
-            if (np.random.rand() < 0.1):
+            if (np.random.rand() < self.epsilon):
                 action = np.random.choice(self.num_actions)
             else:
                 action = np.argmax(self.q_table[player_pose[0], player_pose[1],
